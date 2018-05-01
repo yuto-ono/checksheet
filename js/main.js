@@ -52,7 +52,7 @@ ons.bootstrap().service('CentralService', function() {
   this.store = CentralService;
 
   this.put = e => {
-    this.store.positions.push({
+    this.store.item.positions.push({
       top: e.layerY - 15,
       left: e.layerX - 15
     });
@@ -61,7 +61,7 @@ ons.bootstrap().service('CentralService', function() {
 
   this.remove = (e, index) => {
     e.stopPropagation();
-    this.store.positions.splice(index, 1);
+    this.store.item.positions.splice(index, 1);
     this.store.save();
   };
 
