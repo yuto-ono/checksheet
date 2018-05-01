@@ -48,7 +48,7 @@ ons.bootstrap().service('CentralService', function() {
     };
     
     this.loadPicture = index => {
-        var picture_id = this.data.pictures.[index].picture_id;
+        var picture_id = this.data.pictures[index].picture_id;
         this.data.db.pictures.get(picture_id).then(picture => {
             $timeout(() => {
                 this.data.uri = URL.createObjectURL(picture.blob);
