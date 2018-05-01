@@ -9,6 +9,7 @@ ons.bootstrap().service('CentralService', function() {
 
   this.save = () => this.db.data.put(this.item);
   this.remove = () => this.db.data.delete(this.item.id);
+  this.getURL = blob => URL.createObjectURL(blob);
 })
 
 .controller('HomeController', function($scope, $timeout, CentralService) {
@@ -35,6 +36,13 @@ ons.bootstrap().service('CentralService', function() {
   };
 
   this.store = CentralService;
+  
+  this.store.db.data.toArray().then(data => {
+    $timeout(() => {
+      this.store.items = data;
+    });
+  });
+  
 
   this.getPicture = () => {
     input.click();
