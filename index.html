@@ -16,59 +16,60 @@
   <script src="js/main.js"></script>
 </head>
 <body>
-    <ons-navigator var="navi" page="home.html">
-    </ons-navigator>
+  <ons-navigator var="navi" page="home.html">
+  </ons-navigator>
     
-    <ons-template id="home.html">
-        <ons-page ng-controller="HomeController as home">
-            <ons-toolbar>
-                <div class="center">チェックシート</div>
-                <div class="right" style="padding-right: 10px;">
-                    <ons-toolbar-button ng-click="home.getPicture()">
-                        <i class="fa fa-image"></i>
-                    </ons-toolbar-button>
-                </div>
-            </ons-toolbar>
-            
-            <section style="padding: 20px 0;">
-                <ul class="gallery">
-                    <li ng-repeat="picture in home.data.pictures" ng-click="home.loadPicture($index)">
-                        <img ng-src="{{ picture.uri }}" alt="">
-                    </li>
-                </ul>
-            </section>
-        </ons-page>
-    </ons-template>
-    
-    <ons-template id="edit.html">
-        <ons-page ng-controller="EditController as edit">
-            <ons-toolbar>
-                <div class="left">
-                    <ons-back-button>戻る</ons-back-button>
-                </div>
-                <div class="right">
-                    <ons-toolbar-button ng-click="edit.destroy()">削除</ons-toolbar-button>
-                </div>
-            </ons-toolbar>
-            
-            <ons-gesture-detector
-                ng-transform="edit.zoom($event)"
-                ng-drag="edit.move($event)"
-                ng-release="edit.release()">
-                
-                <section class="edit" ng-click="edit.put($event)">
-                    <div class="edit__inner" ng-style="{ backgroundImage: 'url(' + edit.data.uri + ')' }">
-                        <div class="edit__mark"
-                                ng-repeat="p in edit.data.positions track by $index"
-                                ng-style="{ top: p.top + 'px', left: p.left + 'px' }"
-                                ng-click="edit.remove($event, $index)">
-                            <i class="fa fa-check"></i>
-                        </div>
-                    </div>
-                </section>
-            </ons-gesture-detector>
-        </ons-page>
-    </ons-template>
+  <ons-template id="home.html">
+    <ons-page ng-controller="HomeController as home">
+      <ons-toolbar>
+        <div class="center">チェックシート</div>
+        <div class="right" style="padding-right: 10px;">
+          <ons-toolbar-button ng-click="home.getPicture()">
+            <i class="fa fa-image"></i>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <section style="padding: 20px 0;">
+        <ul class="gallery">
+          <li ng-repeat="picture in home.data.pictures" ng-click="home.loadPicture($index)">
+            <img ng-src="{{ picture.uri }}" alt="">
+          </li>
+        </ul>
+      </section>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="edit.html">
+    <ons-page ng-controller="EditController as edit">
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>戻る</ons-back-button>
+        </div>
+        <div class="right">
+          <ons-toolbar-button ng-click="edit.destroy()">削除</ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <ons-gesture-detector
+        ng-transform="edit.zoom($event)"
+        ng-drag="edit.move($event)"
+        ng-release="edit.release()">
+
+        <section class="edit" ng-click="edit.put($event)">
+          <div class="edit__inner" ng-style="{ backgroundImage: 'url(' + edit.data.uri + ')' }">
+            <div class="edit__mark"
+              ng-repeat="p in edit.data.positions track by $index"
+              ng-style="{ top: p.top + 'px', left: p.left + 'px' }"
+              ng-click="edit.remove($event, $index)">
+              
+              <i class="fa fa-check"></i>
+            </div>
+          </div>
+        </section>
+      </ons-gesture-detector>
+    </ons-page>
+  </ons-template>
 
 </body>
 </html>
