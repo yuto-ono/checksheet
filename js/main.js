@@ -10,7 +10,7 @@ ons.bootstrap().service('CentralService', function() {
     });
     
     this.db.data.get(1).then(data => {
-        this.pictures = data;
+        this.pictures = data.data;
     });
     
     
@@ -29,7 +29,7 @@ ons.bootstrap().service('CentralService', function() {
         this.data.db.pictures.put({ blob: input.files[0] }).then(id => {
             $timeout(() => {
                 this.data.uri = URL.createObjectURL(input.files[0]);
-                this.data.pisitions = [];
+                this.data.positions = [];
                 this.data.index = this.data.pictures.length;
                 this.data.pictures.push({
                     picture_id: id,
