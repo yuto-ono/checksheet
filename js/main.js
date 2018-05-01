@@ -33,7 +33,7 @@ ons.bootstrap().service('CentralService', function() {
         fr.readAsDataURL(input.files[0]);
     };
     
-    this.data = SharedStateService;
+    this.data = CentralService;
     
     try {
         var data = localStorage.getItem('data');
@@ -56,7 +56,7 @@ ons.bootstrap().service('CentralService', function() {
 })
 
 .controller('EditController', function($scope, $timeout, CentralService) {
-    this.data = SharedStateService;
+    this.data = CentralService;
     
     this.put = e => {
         this.data.positions.push({
