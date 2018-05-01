@@ -1,11 +1,21 @@
 ons.bootstrap().service('CentralService', function() {
     this.uri = '';
-    this.index = 0;
     this.positions = [];
     this.pictures = [];
+    this.db = new Dexie('AppDB');
+    
+    this.db.version(1).stores({
+        pictures: '++id',
+        data: 'id'
+    });
+    
+    this.db.data.get(1).then(data => {
+        this.pictures = data;
+    });
+    
     
     this.save = () => {
-        localStorage.setItem('data', JSON.stringify(this.pictures));
+        this.db.data.put({ id: 1, data: pictures });
     };
 })
 
@@ -13,45 +23,40 @@ ons.bootstrap().service('CentralService', function() {
     var self = this;
     var input = document.createElement('input');
     input.type = 'file';
+    input.accept = 'image/*'
     
     input.onchange = () => {
-        var fr = new FileReader();
-        
-        fr.onload = () => {
+        this.data.db.pictures.put({ blob: input.files[0] }).then(id => {
             $timeout(() => {
-                this.data.uri = fr.result;
-                this.data.positions = [];
+                this.data.uri = URL.createObjectURL(input.files[0]);
+                this.data.pisitions = [];
                 this.data.index = this.data.pictures.length;
                 this.data.pictures.push({
-                    uri: fr.result,
+                    picture_id: id,
                     positions: this.data.positions
                 });
+                this.data.save();
                 $scope.navi.pushPage('edit.html');
             });
-        };
-        
-        fr.readAsDataURL(input.files[0]);
+        });
     };
     
     this.data = CentralService;
-    
-    try {
-        var data = localStorage.getItem('data');
-        if (data) {
-            this.data.pictures = JSON.parse(data);
-        }
-    }
-    finally {}
     
     this.getPicture = () => {
         input.click();
     };
     
     this.loadPicture = index => {
-        this.data.uri = this.data.pictures[index].uri;
-        this.data.positions = this.data.pictures[index].positions;
-        this.data.index = index;
-        $scope.navi.pushPage('edit.html');
+        var picture_id = this.data.pictures.[index].picture_id;
+        this.data.db.pictures.get(picture_id).then(picture => {
+            $timeout(() => {
+                this.data.uri = URL.createObjectURL(picture.blob);
+                this.data.positions = this.data.pictures[index].positions;
+                this.data.index = index;
+                $scope.navi.pushPage('edit.html');
+            });
+        });
     };
 })
 
