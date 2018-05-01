@@ -33,7 +33,7 @@
 
       <section style="padding: 20px 0;">
         <ul class="gallery">
-          <li ng-repeat="item in home.store.items" ng-click="home.loadPicture($index)">
+          <li ng-repeat="item in home.store.items track by item.id" ng-click="home.loadPicture($index)">
             <img ng-src="{{ home.store.getURL(item.blob) }}" alt="">
           </li>
         </ul>
