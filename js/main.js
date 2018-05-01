@@ -5,7 +5,7 @@ ons.bootstrap().service('CentralService', function() {
     this.pictures = [];
     
     this.save = () => {
-        localStorage.setItem('data', JSON.stringify(this.data.pictures));
+        localStorage.setItem('data', JSON.stringify(this.pictures));
     };
 })
 
@@ -63,13 +63,13 @@ ons.bootstrap().service('CentralService', function() {
             top: (e.layerY - 15) + 'px',
             left: (e.layerX - 15) + 'px'
         });
-        this.save();
+        this.data.save();
     };
     
     this.remove = (e, index) => {
         e.stopPropagation();
         this.data.positions.splice(index, 1);
-        this.save();
+        this.data.save();
     };
     
     this.destroy = () => {
@@ -82,14 +82,10 @@ ons.bootstrap().service('CentralService', function() {
             callback: index => {
                 if (!index) {
                     this.data.pictures.splice(this.data.index, 1);
-                    this.save();
+                    this.data.save();
                     $scope.navi.popPage();
                 }
             }
         });
-    };
-    
-    this.save = () => {
-        localStorage.setItem('data', JSON.stringify(this.data.pictures));
     };
 });
