@@ -60,8 +60,8 @@ ons.bootstrap().service('CentralService', function() {
     
     this.put = e => {
         this.data.positions.push({
-            top: (e.layerY - 15) + 'px',
-            left: (e.layerX - 15) + 'px'
+            top: e.layerY - 15,
+            left: e.layerX - 15
         });
         this.data.save();
     };
