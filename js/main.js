@@ -23,7 +23,7 @@ ons.bootstrap().service('CentralService', function() {
             blob: input.files[0]
         };
         
-        this.store.db.data.put(this.store.item).then(id => {
+        this.store.db.data.add(this.store.item).then(id => {
             $timeout(() => {
                 this.store.item.id = id;
                 this.store.index = this.store.items.length;
