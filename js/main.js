@@ -1,80 +1,68 @@
 ons.bootstrap().service('CentralService', function() {
-    this.uri = '';
-    this.positions = [];
-    this.pictures = [];
+    this.item = {};
+    this.items = [];
+    this.index = 0;
+    this.url = '';
     this.db = new Dexie('AppDB');
     
-    this.db.version(1).stores({
-        pictures: '++id',
-        data: 'id'
-    });
+    this.db.version(1).stores({ data: '++id' });
     
-    this.db.data.get(1).then(data => {
-        this.pictures = data.data;
-    });
-    
-    
-    this.save = () => {
-        this.db.data.put({ id: 1, data: pictures });
-    };
+    this.save = () => this.db.data.put(this.item);
+    this.remove = () => this.db.data.delete(this.item.id);
 })
 
 .controller('HomeController', function($scope, $timeout, CentralService) {
     var self = this;
     var input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image/*'
+    input.accept = 'image/*';
     
     input.onchange = () => {
-        this.data.db.pictures.put({ blob: input.files[0] }).then(id => {
+        this.store.item = {
+            positions: [],
+            blob: input.files[0]
+        };
+        
+        this.store.db.data.put(this.store.item).then(id => {
             $timeout(() => {
-                this.data.uri = URL.createObjectURL(input.files[0]);
-                this.data.positions = [];
-                this.data.index = this.data.pictures.length;
-                this.data.pictures.push({
-                    picture_id: id,
-                    positions: this.data.positions
-                });
-                this.data.save();
+                this.store.item.id = id;
+                this.store.index = this.store.items.length;
+                this.store.url = URL.createObjectURL(this.store.item.blob);
+                this.store.items.push(this.store.item);
                 $scope.navi.pushPage('edit.html');
             });
         });
     };
     
-    this.data = CentralService;
+    this.store = CentralService;
     
     this.getPicture = () => {
         input.click();
     };
     
     this.loadPicture = index => {
-        var picture_id = this.data.pictures[index].picture_id;
-        this.data.db.pictures.get(picture_id).then(picture => {
-            $timeout(() => {
-                this.data.uri = URL.createObjectURL(picture.blob);
-                this.data.positions = this.data.pictures[index].positions;
-                this.data.index = index;
-                $scope.navi.pushPage('edit.html');
-            });
-        });
+        this.store.item = this.store.items[index];
+        this.store.index = index;
+        this.store.url = URL.createObjectURL(this.store.item.blob);
+        $scope.navi.pushPage('edit.html');
     };
 })
 
 .controller('EditController', function($scope, $timeout, CentralService) {
-    this.data = CentralService;
+    this.store = CentralService;
     
     this.put = e => {
-        this.data.positions.push({
+        this.store.positions.push({
             top: e.layerY - 15,
             left: e.layerX - 15
         });
-        this.data.save();
+        this.store.save();
     };
     
     this.remove = (e, index) => {
         e.stopPropagation();
-        this.data.positions.splice(index, 1);
-        this.data.save();
+        this.store.positions.splice(index, 1);
+        this.store.save();
     };
     
     this.destroy = () => {
@@ -86,9 +74,11 @@ ons.bootstrap().service('CentralService', function() {
             cancelable: true,
             callback: index => {
                 if (!index) {
-                    this.data.pictures.splice(this.data.index, 1);
-                    this.data.save();
-                    $scope.navi.popPage();
+                    $timeout(() => {
+                        this.store.remove();
+                        this.store.data.splice(this.store.index, 1);
+                        $scope.navi.popPage();
+                    });
                 }
             }
         });

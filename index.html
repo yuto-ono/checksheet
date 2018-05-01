@@ -33,8 +33,8 @@
 
       <section style="padding: 20px 0;">
         <ul class="gallery">
-          <li ng-repeat="picture in home.data.pictures" ng-click="home.loadPicture($index)">
-            <img ng-src="{{ picture.uri }}" alt="">
+          <li ng-repeat="item in home.store.items" ng-click="home.loadPicture($index)">
+            <img ng-src="{{ URL.createObjectURL(item.blob) }}" alt="">
           </li>
         </ul>
       </section>
@@ -58,9 +58,9 @@
         ng-release="edit.release()">
 
         <section class="edit" ng-click="edit.put($event)">
-          <div class="edit__inner" ng-style="{ backgroundImage: 'url(' + edit.data.uri + ')' }">
+          <div class="edit__inner" ng-style="{ backgroundImage: 'url(' + edit.store.url + ')' }">
             <div class="edit__mark"
-              ng-repeat="p in edit.data.positions track by $index"
+              ng-repeat="p in edit.store.item.positions track by $index"
               ng-style="{ top: p.top + 'px', left: p.left + 'px' }"
               ng-click="edit.remove($event, $index)">
               
