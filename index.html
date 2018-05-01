@@ -59,8 +59,8 @@
                 <section class="edit" ng-click="edit.put($event)">
                     <div class="edit__inner" ng-style="{ backgroundImage: 'url(' + edit.data.uri + ')' }">
                         <div class="edit__mark"
-                                ng-repeat="position in edit.data.positions"
-                                ng-style="position"
+                                ng-repeat="p in edit.data.positions"
+                                ng-style="{ top: p.top + 'px, left: p.left + 'px'"
                                 ng-click="edit.remove($event, $index)">
                             <i class="fa fa-check"></i>
                         </div>
