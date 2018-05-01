@@ -1,13 +1,15 @@
-ons.bootstrap().factory('SharedStateService', function() {
-    return {
-        uri: '',
-        index: 0,
-        positions: [],
-        pictures: []
+ons.bootstrap().service('CentralService', function() {
+    this.uri = '';
+    this.index = 0;
+    this.positions = [];
+    this.pictures = [];
+    
+    this.save = () => {
+        localStorage.setItem('data', JSON.stringify(this.data.pictures));
     };
 })
 
-.controller('HomeController', function($scope, $timeout, SharedStateService) {
+.controller('HomeController', function($scope, $timeout, CentralService) {
     var self = this;
     var input = document.createElement('input');
     input.type = 'file';
@@ -53,7 +55,7 @@ ons.bootstrap().factory('SharedStateService', function() {
     };
 })
 
-.controller('EditController', function($scope, $timeout, SharedStateService) {
+.controller('EditController', function($scope, $timeout, CentralService) {
     this.data = SharedStateService;
     
     this.put = e => {
