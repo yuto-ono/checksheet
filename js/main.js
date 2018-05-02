@@ -104,7 +104,7 @@ ons.bootstrap().service('CentralService', function() {
 });
 
 window.addEventListener('error', e => {
-  ons.nitification.alert({
+  ons.notification.alert({
     title: 'Error',
     message: e.filename + '@' + e.lineno + ': ' + e.message
   });
