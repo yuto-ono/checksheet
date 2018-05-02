@@ -2,14 +2,17 @@ ons.bootstrap().service('CentralService', function() {
   this.item = {};
   this.items = [];
   this.index = 0;
-  this.url = '';
   this.db = new Dexie('AppDB');
 
   this.db.version(1).stores({ data: '++id' });
 
-  this.save = () => this.db.data.put(this.item);
+  this.save = () => this.db.data.put({
+    id: this.item.id,
+    positions: this.item.positions,
+    blob: this.item.blob
+  });
+  
   this.remove = () => this.db.data.delete(this.item.id);
-  this.getURL = blob => URL.createObjectURL(blob);
 })
 
 .controller('HomeController', function($scope, $timeout, CentralService) {
@@ -21,14 +24,14 @@ ons.bootstrap().service('CentralService', function() {
   input.onchange = () => {
     this.store.item = {
       positions: [],
-      blob: input.files[0]
+      blob: input.files[0],
+      url: URL.createObjectURL(input.files[0])
     };
 
     this.store.db.data.add(this.store.item).then(id => {
       $timeout(() => {
         this.store.item.id = id;
         this.store.index = this.store.items.length;
-        this.store.url = URL.createObjectURL(this.store.item.blob);
         this.store.items.push(this.store.item);
         $scope.navi.pushPage('edit.html');
       });
@@ -39,7 +42,14 @@ ons.bootstrap().service('CentralService', function() {
   
   this.store.db.data.toArray().then(data => {
     $timeout(() => {
-      this.store.items = data;
+      data.forEach(item => {
+        this.store.items.push({
+          id: item.id,
+          positions: item.positions,
+          blob: item.blob,
+          url: URL.createObjectURL(item.blob)
+        });
+      });
     });
   });
   
