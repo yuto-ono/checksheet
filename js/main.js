@@ -102,3 +102,9 @@ ons.bootstrap().service('CentralService', function() {
     });
   };
 });
+
+document.addEventListener('error', e => {
+  ons.nitification.alert({
+    title: 'Error',
+    message: e.filename + '@' + e.lineno + ': ' + e.message
+});
