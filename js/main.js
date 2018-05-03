@@ -22,6 +22,7 @@ ons.bootstrap().service('CentralService', function() {
   input.accept = 'image/*';
 
   input.onchange = () => {
+    alert('b');
     this.store.item = {
       positions: [],
       blob: input.files[0],
@@ -30,6 +31,7 @@ ons.bootstrap().service('CentralService', function() {
 
     this.store.db.data.add(this.store.item).then(id => {
       $timeout(() => {
+        alert('c');
         this.store.item.id = id;
         this.store.index = this.store.items.length;
         this.store.items.push(this.store.item);
@@ -55,6 +57,7 @@ ons.bootstrap().service('CentralService', function() {
   
 
   this.getPicture = () => {
+    alert('a');
     input.click();
   };
 
