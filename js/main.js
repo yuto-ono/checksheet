@@ -104,7 +104,7 @@ ons.bootstrap().service('CentralService', function() {
         if (!index) {
           $timeout(() => {
             this.store.remove();
-            this.store.data.splice(this.store.index, 1);
+            this.store.items.splice(this.store.index, 1);
             $scope.navi.popPage();
           });
         }
