@@ -9,7 +9,8 @@ ons.bootstrap().service('CentralService', function() {
   this.save = () => this.db.data.put({
     id: this.item.id,
     positions: this.item.positions,
-    blob: this.item.blob
+    buffer: this.item.buffer,
+    type: this.item.type
   });
   
   this.remove = () => this.db.data.delete(this.item.id);
@@ -22,22 +23,28 @@ ons.bootstrap().service('CentralService', function() {
   input.accept = 'image/*';
 
   input.onchange = () => {
-    alert('b');
-    this.store.item = {
-      positions: [],
-      blob: input.files[0],
-      url: URL.createObjectURL(input.files[0])
-    };
+    var fr = new FileReader();
+    
+    fr.onload = () => {
+      this.store.item = {
+        positions: [],
+        buffer: fr.result,
+        type: input.files[0].type,
+        url: URL.createObjectURL(input.files[0])
+      };
 
-    this.store.db.data.add(this.store.item).then(id => {
-      $timeout(() => {
-        alert('c');
-        this.store.item.id = id;
-        this.store.index = this.store.items.length;
-        this.store.items.push(this.store.item);
-        $scope.navi.pushPage('edit.html');
-      });
-    }).catch(error => alert(error));
+      this.store.db.data.add(this.store.item).then(id => {
+        $timeout(() => {
+          alert('c');
+          this.store.item.id = id;
+          this.store.index = this.store.items.length;
+          this.store.items.push(this.store.item);
+          $scope.navi.pushPage('edit.html');
+        });
+      }).catch(error => alert(error));
+    };
+    
+    fr.readAsArrayBuffer(input.files[0]);
   };
 
   this.store = CentralService;
@@ -45,11 +52,14 @@ ons.bootstrap().service('CentralService', function() {
   this.store.db.data.toArray().then(data => {
     $timeout(() => {
       data.forEach(item => {
+        var blob = new Blob(item.buffer, { type: item.type });
+        
         this.store.items.push({
           id: item.id,
           positions: item.positions,
-          blob: item.blob,
-          url: URL.createObjectURL(item.blob)
+          buffer: item.buffer,
+          type: item.type,
+          url: URL.createObjectURL(blob)
         });
       });
     });
@@ -57,7 +67,6 @@ ons.bootstrap().service('CentralService', function() {
   
 
   this.getPicture = () => {
-    alert('a');
     input.click();
   };
 
@@ -104,8 +113,4 @@ ons.bootstrap().service('CentralService', function() {
       }
     });
   };
-});
-
-window.addEventListener('error', e => {
-  alert(e.filename + '@' + e.lineno + ': ' + e.message);
 });
