@@ -53,12 +53,12 @@
       </ons-toolbar>
 
       <ons-gesture-detector
-        ng-transform="edit.zoom($event)"
         ng-drag="edit.move($event)"
         ng-release="edit.release()">
 
         <section class="edit" ng-click="edit.put($event)">
-          <div class="edit__inner" ng-style="{ backgroundImage: 'url(' + edit.store.item.url + ')' }">
+          <div class="edit__inner">
+            <img ng-src="{{ edit.store.item.url }}" alt="" class="edit__img">
             <div class="edit__mark"
               ng-repeat="p in edit.store.item.positions track by $index"
               ng-style="{ top: p.top + 'px', left: p.left + 'px' }"
