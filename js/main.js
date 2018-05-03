@@ -51,7 +51,7 @@ ons.bootstrap().service('CentralService', function() {
   this.store.db.data.toArray().then(data => {
     $timeout(() => {
       data.forEach(item => {
-        var blob = new Blob(item.buffer, { type: item.type });
+        var blob = new Blob([ item.buffer ], { type: item.type });
         
         this.store.items.push({
           id: item.id,
