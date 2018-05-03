@@ -37,7 +37,7 @@ ons.bootstrap().service('CentralService', function() {
         this.store.items.push(this.store.item);
         $scope.navi.pushPage('edit.html');
       });
-    });
+    }).catch(error => alert(error));
   };
 
   this.store = CentralService;
@@ -107,8 +107,5 @@ ons.bootstrap().service('CentralService', function() {
 });
 
 window.addEventListener('error', e => {
-  ons.notification.alert({
-    title: 'Error',
-    message: e.filename + '@' + e.lineno + ': ' + e.message
-  });
+  alert(e.filename + '@' + e.lineno + ': ' + e.message);
 });
