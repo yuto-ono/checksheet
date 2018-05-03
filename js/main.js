@@ -35,13 +35,12 @@ ons.bootstrap().service('CentralService', function() {
 
       this.store.db.data.add(this.store.item).then(id => {
         $timeout(() => {
-          alert('c');
           this.store.item.id = id;
           this.store.index = this.store.items.length;
           this.store.items.push(this.store.item);
           $scope.navi.pushPage('edit.html');
         });
-      }).catch(error => alert(error));
+      });
     };
     
     fr.readAsArrayBuffer(input.files[0]);
