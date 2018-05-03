@@ -73,7 +73,6 @@ ons.bootstrap().service('CentralService', function() {
   this.loadPicture = index => {
     this.store.item = this.store.items[index];
     this.store.index = index;
-    this.store.url = URL.createObjectURL(this.store.item.blob);
     $scope.navi.pushPage('edit.html');
   };
 })
