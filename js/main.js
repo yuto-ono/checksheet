@@ -116,5 +116,7 @@ ons.bootstrap().service('CentralService', function() {
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/checksheet/js/sw.js');
+  navigator.serviceWorker.register('/checksheet/js/sw.js').then(registraion => {
+    registraion.update();
+  });
 }
