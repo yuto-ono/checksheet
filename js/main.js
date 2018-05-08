@@ -112,3 +112,7 @@ ons.bootstrap().service('CentralService', function() {
     });
   };
 });
+
+if ('serviceworker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
