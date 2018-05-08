@@ -27,7 +27,9 @@
       <ons-toolbar>
         <div class="center">チェックシート</div>
         <div class="right" style="padding-right: 10px;">
-          <ons-toolbar-button ng-click="home.getPicture()">写真を追加</ons-toolbar-button>
+          <ons-toolbar-button ng-click="home.getPicture()">
+            <i class="fa fa-plus"></i>
+          </ons-toolbar-button>
         </div>
       </ons-toolbar>
 
@@ -52,23 +54,18 @@
         </div>
       </ons-toolbar>
 
-      <ons-gesture-detector
-        ng-drag="edit.move($event)"
-        ng-release="edit.release()">
+      <section class="edit" ng-click="edit.put($event)">
+        <div class="edit__inner">
+          <img ng-src="{{ edit.store.item.url }}" alt="" class="edit__img">
+          <div class="edit__mark"
+            ng-repeat="p in edit.store.item.positions track by $index"
+            ng-style="{ top: p.top + 'px', left: p.left + 'px' }"
+            ng-click="edit.remove($event, $index)">
 
-        <section class="edit" ng-click="edit.put($event)">
-          <div class="edit__inner">
-            <img ng-src="{{ edit.store.item.url }}" alt="" class="edit__img">
-            <div class="edit__mark"
-              ng-repeat="p in edit.store.item.positions track by $index"
-              ng-style="{ top: p.top + 'px', left: p.left + 'px' }"
-              ng-click="edit.remove($event, $index)">
-              
-              <i class="fa fa-check"></i>
-            </div>
+            <i class="fa fa-check"></i>
           </div>
-        </section>
-      </ons-gesture-detector>
+        </div>
+      </section>
     </ons-page>
   </ons-template>
 
