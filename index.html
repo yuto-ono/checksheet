@@ -27,9 +27,7 @@
       <ons-toolbar>
         <div class="center">チェックシート</div>
         <div class="right" style="padding-right: 10px;">
-          <ons-toolbar-button ng-click="home.getPicture()">
-            <i class="fa fa-camera"></i>
-          </ons-toolbar-button>
+          <ons-toolbar-button ng-click="home.getPicture()">写真を追加</ons-toolbar-button>
         </div>
       </ons-toolbar>
 
@@ -60,10 +58,7 @@
           <div class="edit__mark"
             ng-repeat="p in edit.store.item.positions track by $index"
             ng-style="{ top: p.top + '%', left: p.left + '%' }"
-            ng-click="edit.remove($event, $index)">
-
-            <i class="fa fa-check"></i>
-          </div>
+            ng-click="edit.remove($event, $index)">&#10004;</div>
         </div>
       </section>
     </ons-page>
