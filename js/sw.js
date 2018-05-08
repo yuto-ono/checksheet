@@ -1,4 +1,4 @@
-var cacheName = 'cache20180508';
+var cacheName = 'cache20180509';
 var filesToCache = [
   '/checksheet/',
   '/checksheet/css/style.css',
@@ -14,7 +14,8 @@ var filesToCache = [
   'https://unpkg.com/onsenui@2.9.2/css/ionicons/css/ionicons.min.css',
   'https://unpkg.com/onsenui@2.9.2/css/material-design-iconic-font/css/material-design-iconic-font.min.css',
   'https://unpkg.com/onsenui@2.9.2/css/font_awesome/css/font-awesome.min.css',
-  'https://unpkg.com/onsenui@2.9.2/css/font_awesome/fonts/fontawesome-webfont.woff2?v=4.7.0'
+  'https://unpkg.com/onsenui@2.9.2/css/font_awesome/fonts/fontawesome-webfont.woff2?v=4.7.0',
+  'https://unpkg.com/onsenui@2.9.2/css/font_awesome/fonts/fontawesome-webfont.woff2',
 ];
 
 self.addEventListener('install', function(e) {
