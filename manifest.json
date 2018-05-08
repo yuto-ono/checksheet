@@ -1,0 +1,14 @@
+{
+  "short_name": "チェックシート",
+  "name": "チェックシート",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/checksheet/",
+  "icons": [
+    {
+      "src": "app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
