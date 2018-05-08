@@ -54,8 +54,8 @@
         </div>
       </ons-toolbar>
 
-      <section class="edit" ng-click="edit.put($event)">
-        <div class="edit__inner" id="edit__inner">
+      <section class="edit">
+        <div class="edit__inner" id="edit__inner" ng-click="edit.put($event)">
           <img ng-src="{{ edit.store.item.url }}" alt="" class="edit__img">
           <div class="edit__mark"
             ng-repeat="p in edit.store.item.positions track by $index"
