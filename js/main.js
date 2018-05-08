@@ -113,6 +113,6 @@ ons.bootstrap().service('CentralService', function() {
   };
 });
 
-if ('serviceworker' in navigator) {
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
