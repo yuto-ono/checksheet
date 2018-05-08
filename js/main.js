@@ -114,5 +114,5 @@ ons.bootstrap().service('CentralService', function() {
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+  navigator.serviceWorker.register('/checksheet/js/sw.js');
 }
