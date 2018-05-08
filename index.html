@@ -55,11 +55,11 @@
       </ons-toolbar>
 
       <section class="edit" ng-click="edit.put($event)">
-        <div class="edit__inner">
+        <div class="edit__inner" id="edit__inner">
           <img ng-src="{{ edit.store.item.url }}" alt="" class="edit__img">
           <div class="edit__mark"
             ng-repeat="p in edit.store.item.positions track by $index"
-            ng-style="{ top: p.top + 'px', left: p.left + 'px' }"
+            ng-style="{ top: p.top + '%', left: p.left + '%' }"
             ng-click="edit.remove($event, $index)">
 
             <i class="fa fa-check"></i>

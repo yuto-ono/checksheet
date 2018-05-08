@@ -2,7 +2,6 @@
   "short_name": "チェックシート",
   "name": "チェックシート",
   "display": "standalone",
-  "orientation": "portrait",
   "start_url": "/checksheet/",
   "icons": [
     {

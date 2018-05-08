@@ -78,11 +78,13 @@ ons.bootstrap().service('CentralService', function() {
 
 .controller('EditController', function($scope, $timeout, CentralService) {
   this.store = CentralService;
+  this.edit = document.getElementById('edit__inner');
 
   this.put = e => {
+    var r = this.edit.getBoundingClientRect();
     this.store.item.positions.push({
-      top: e.layerY - 15,
-      left: e.layerX - 15
+      top: 100 * e.layerY / r.width,
+      left: 100 * e.layerX / r.height
     });
     this.store.save();
   };
