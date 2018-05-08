@@ -83,8 +83,8 @@ ons.bootstrap().service('CentralService', function() {
   this.put = e => {
     var r = this.edit.getBoundingClientRect();
     this.store.item.positions.push({
-      top: 100 * e.layerY / r.width,
-      left: 100 * e.layerX / r.height
+      top: 100 * e.layerY / r.height,
+      left: 100 * e.layerX / r.width
     });
     this.store.save();
   };
